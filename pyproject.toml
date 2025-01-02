@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "quickdb"
+version = "0.0.1"
+authors = [
+  { name="Kunle Adewole", email="adewoleadekunle23@yahoo.com" },
+]
+description = "it provides a way to interact with the database in blockchain"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "email_validator==2.2.0",
+  "requests==2.32.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
