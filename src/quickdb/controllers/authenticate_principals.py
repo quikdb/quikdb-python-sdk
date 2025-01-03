@@ -18,8 +18,8 @@ def authenticate_principal(username: str, principal_id: str):
         # Stop any running dfx instance
         stop_result = subprocess.run(
             ["dfx", "stop"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stdout=None,
+            stderr=None,
             text=True,
             check=False
         )

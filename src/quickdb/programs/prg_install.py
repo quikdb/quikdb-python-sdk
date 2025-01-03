@@ -68,6 +68,7 @@ def install_command(args):
             print("Configuration data is valid for II.")
         else:
             valid_config = Tools.has_properties(config_json, sample_auth_request.keys())
+            print('valid',valid_config)
             if not valid_config:
                 print('Invalid configuration data. Please run "quikdb config".')
                 return

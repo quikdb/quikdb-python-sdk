@@ -51,7 +51,7 @@ class Tools:
     @staticmethod
     def has_properties(obj, properties):
         """Check if an object has the given properties."""
-        return all(hasattr(obj, prop) for prop in properties)
+        return (hasattr(obj, prop) for prop in properties)
 
     @staticmethod
     def check_and_install_dfx():

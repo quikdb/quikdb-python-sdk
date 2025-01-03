@@ -13,7 +13,7 @@ def get_principal(username: str):
         # Try to get the principal ID
         principal_id_result = subprocess.run(
             ["dfx", "identity", "get-principal", "--identity", username],
-            stdout=None,
+            stdout=subprocess.PIPE,
             stderr=None,
             text=True,
             check=False
@@ -35,7 +35,7 @@ def get_principal(username: str):
             # Retry getting the principal ID
             principal_id_result = subprocess.run(
                 ["dfx", "identity", "get-principal", "--identity", username],
-                stdout=None,
+                stdout=subprocess.PIPE,
                 stderr=None,
                 text=True,
                 check=False

@@ -3,3 +3,4 @@ build/
 env/
 __pycache__/
 wsl_env/
+*.out
