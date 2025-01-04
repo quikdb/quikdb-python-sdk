@@ -69,3 +69,30 @@ class Tools:
         print(f"Cloning repository from {repo}...")
         subprocess.run(['git', 'clone', repo, local_path], check=True)
         print('Repository cloned successfully.')
+
+    @staticmethod
+    def parse_url(url: str) -> dict:
+        """
+        Splits the URL at '?', capturing the baseUrl and query params.
+        Looks specifically for 'canisterId' and 'id' in the query string.
+        """
+        split_url = url.split("?", 1)
+        base_url = split_url[0]
+        if len(split_url) == 1:
+            return {"baseUrl": base_url, "canisterId": "", "id": ""}
+
+        query_string = split_url[1]
+        params = query_string.split("&")
+        canister_id = ""
+        _id = ""
+
+        for param in params:
+            key_val = param.split("=")
+            if len(key_val) == 2:
+                key, val = key_val
+                if key == "canisterId":
+                    canister_id = val
+                elif key == "id":
+                    _id = val
+
+        return {"baseUrl": base_url, "canisterId": canister_id, "id": _id}

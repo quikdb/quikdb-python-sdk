@@ -12,7 +12,15 @@ from quickdb.controllers import (
     get_principal,
     install_dfx
 )
-from quickdb.http import authenticate_cli, encrypt_user_data, upload_project_code  # Adjust module names as needed
+from quickdb.http import authenticate_cli, encrypt_user_data, upload_project_code, activate_project  # Adjust module names as needed
+
+home_dir = os.path.expanduser("~")
+
+# Equivalent to path.resolve(homeDir, ".quikdb", "quikdb");
+quikdb_dir = os.path.join(home_dir, ".quikdb", "quikdb")
+
+# Equivalent to path.resolve(homeDir, ".quikdb", "dist.zip");
+dist_dir = os.path.join(home_dir, ".quikdb", "dist.zip")
 
 def install_command(args):
     """Checks if QuikDB is installed and installs it if necessary."""
@@ -107,7 +115,8 @@ def install_command(args):
             return
 
         # Encrypt and upload project code
-        payload = json.dumps({"id": auth["data"]["data"]["projectId"]})
+        print('auth', auth)
+        payload = json.dumps({"id": auth["data"]["data"]["project"]["_id"]})
         encryption_response = encrypt_user_data(payload, project_token_ref)
         print({"encryptionResponse": encryption_response["data"]["encryptedData"]})
 
@@ -115,7 +124,7 @@ def install_command(args):
         token = auth["data"]["data"].get("accessToken")
 
         # Zip folder and upload
-        os.chdir("../")
+        os.chdir(os.path.expanduser('~/.quikdb'))
         folder_to_zip = "quikdb"
         zip_file_name = "dist.zip"
         with ZipFile(zip_file_name, "w") as zipf:
@@ -124,8 +133,27 @@ def install_command(args):
                     zipf.write(os.path.join(root, file))
         print(f"Folder successfully zipped to {zip_file_name}")
 
-        file_path = Path(__file__).parent.parent / "temp" / "dist.zip"
-        upload_project_code(project_id, token, str(file_path))
+        upload_project_code(project_id, token, str(dist_dir))
+        canister_details = Tools.parse_url(canister_url)
+        canister_payload = {
+            "databaseVersion": auth["data"]["data"]["project"]["databaseVersion"],
+            "url": canister_details["baseUrl"],
+            "canisterId": canister_details["id"],
+            "controllers": [principal_id]
+        }
+
+        # 20. Append canisterId & url to config
+        Tools.append_to_config_file("canisterId", canister_payload["canisterId"], "canisterId")
+        Tools.append_to_config_file("url", canister_payload["url"], "url")
+
+        # 21. Encrypt canister payload
+        canister_encryption_resp = encrypt_user_data(json.dumps(canister_payload), project_token_ref)
+        encrypted_canister_payload = canister_encryption_resp["data"]["encryptedData"]
+        print({"encrypted_canister_payload": encrypted_canister_payload})
+
+        # 22. Activate the project
+        activate_project_resp = activate_project(project_id, encrypted_canister_payload, token)
+        print({"activateProjectResponse": activate_project_resp["message"]})
     else:
         print("No configuration file found.")
 

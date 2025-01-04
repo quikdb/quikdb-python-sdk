@@ -29,8 +29,8 @@ def authenticate_principal(username: str, principal_id: str):
         # Start dfx in the background
         start_result = subprocess.run(
             ["nohup", "dfx", "start", "--clean", "--background"],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stdout=None,
+            stderr=None,
             text=True,
             check=False
         )
@@ -43,15 +43,15 @@ def authenticate_principal(username: str, principal_id: str):
         return False
 
     # Wait for dfx to initialize
-    time.sleep(10)
+    time.sleep(5)
 
     # Step 2: Set and authorize controller
     print("Setting controller...")
     try:
         set_controller_result = subprocess.run(
             ["dfx", "wallet", "add-controller", principal_id],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            stdout=None,
+            stderr=None,
             text=True,
             check=False
         )
