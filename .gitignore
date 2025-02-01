@@ -5,3 +5,4 @@ __pycache__/
 wsl_env/
 *.out
 temp/
+dist/

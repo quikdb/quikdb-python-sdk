@@ -4,10 +4,11 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "quickdb"
+name = "quikdb-cli"
 version = "0.0.1"
 authors = [
   { name="Kunle Adewole", email="adewoleadekunle23@yahoo.com" },
+  { name="Samson ajulor", email="quikdb@gmail.com" },
 ]
 description = "it provides a way to interact with the database in blockchain"
 readme = "README.md"

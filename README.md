@@ -14,7 +14,8 @@ Ensure the following prerequisites are met:
 
 1. **Install QuikDB CLI via pip**:
    ```bash
-   pip install quikdb
+   pip install quikdb_clizAfsdazX YKL;
+   "
    ```
 
 ## Usage
@@ -38,6 +39,7 @@ After installation, you can use the CLI to manage QuikDB operations.
    ```bash
    quikdb config --username <USERNAME> --email <EMAIL> --identity <IDENTITY>
    ```
+
 
 ### 4. **Other Commands**:
    Extend the CLI with additional subcommands, such as deploying projects, uploading files, and managing tokens.
