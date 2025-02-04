@@ -8,7 +8,7 @@ name = "quikdb-cli"
 version = "0.0.1"
 authors = [
   { name="Kunle Adewole", email="adewoleadekunle23@yahoo.com" },
-  { name="Samson ajulor", email="quikdb@gmail.com" },
+  { name="Samson ajulor", email="samsonajulor@gmail.com" },
 ]
 description = "it provides a way to interact with the database in blockchain"
 readme = "README.md"

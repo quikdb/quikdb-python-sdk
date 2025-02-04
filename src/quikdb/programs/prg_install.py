@@ -98,12 +98,12 @@ def install_command(args):
             Tools.append_to_config_file(
                 "seedPhrase",
                 principal["data"]["seedPhrase"],
-                Path(Tools.CONFIG_DIR) / "accessTokens"
+                Path(Tools.CONFIG_DIR) / "accessToken"
             )
         Tools.append_to_config_file(
             "accessToken",
             auth["data"]["data"].get("accessToken"),
-            Path(Tools.CONFIG_DIR) / "accessTokens"
+            Path(Tools.CONFIG_DIR) / "accessToken"
         )
 
         # Fetch code and deploy locally

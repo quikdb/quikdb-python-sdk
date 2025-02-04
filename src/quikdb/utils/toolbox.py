@@ -19,7 +19,7 @@ class Tools:
     def append_to_config_file(key: str, value: str, file_path: str = None):
         """Append a key-value pair to the configuration file."""
         Tools.ensure_config_directory()
-        config_entry = f"{key}: {value}\n"
+        config_entry = f"{key}& {value}\n"
 
         target_file = Path(file_path) if file_path else Tools.CONFIG_FILE
         try:
